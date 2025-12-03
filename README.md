@@ -2,273 +2,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบแจ้งซ่อมอุปกรณ์โรงเรียน - Full Stack Lite</title>
+    <title>ระบบแจ้งซ่อมอุปกรณ์โรงเรียน</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --primary-color: #007BFF; /* ฟ้าสดใส */
-            --secondary-color: #0056b3; /* น้ำเงินเข้ม */
-            --background-light: #f4f7f6; /* พื้นหลังสีเทาอ่อน */
-            --text-dark: #333;
-            --success-color: #28a745; /* สีเขียวสำหรับซ่อมสำเร็จ */
-            --warning-color: #ffc107; /* สีเหลืองสำหรับรอซ่อม */
-        }
-
         body {
-            font-family: Arial, sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-dark);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
+            font-family: 'Prompt', sans-serif;
+            background-color: #f0f4f8; /* สีพื้นหลังอ่อน ๆ */
         }
-
-        /* ------------------ Layout Containers ------------------ */
-        .app-container {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* กำหนดรูปแบบหลักเพื่อให้หน้าจอ login อยู่ตรงกลาง */
+        #login-screen {
+            background: linear-gradient(135deg, #0077c2 0%, #00bcd4 100%); /* Blue-Cyan Gradient */
         }
-        
-        .main-content {
-            width: 95%;
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* ------------------ Header & Typography ------------------ */
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-            margin-bottom: 25px;
-            border-radius: 10px 10px 0 0;
-        }
-
-        h1 { margin: 0; }
-        
-        /* ------------------ Form Styling ------------------ */
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            display: block;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .btn:hover {
-            background-color: var(--secondary-color);
-        }
-
-        input[type="text"], input[type="date"], input[type="password"], textarea, select {
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            display: inline-block;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 1em;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-            color: var(--secondary-color);
-        }
-
-        /* ------------------ Dashboard Styling ------------------ */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 25px;
-            text-align: center;
-        }
-
-        .card {
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            font-size: 1.2em;
-        }
-
-        .card h1 {
-            font-size: 3em;
-            margin: 10px 0;
-        }
-
-        .card.all-reports { background: #e3f2fd; color: var(--secondary-color); }
-        .card.pending { background: var(--warning-color); color: var(--text-dark); }
-        .card.repaired { background: var(--success-color); color: white; }
-
-        /* ------------------ Table Styling ------------------ */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid #e0e0e0;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: var(--secondary-color);
-            color: white;
-            font-weight: bold;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        /* ------------------ Custom Login Styles ------------------ */
         #login-form-container {
             width: 90%;
             max-width: 400px;
             padding: 30px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        #login-form-container header {
+            background-color: #0077c2; /* สีน้ำเงินเข้ม */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin: -30px -30px 20px -30px;
+            border-radius: 15px 15px 0 0;
         }
 
-        #login-form-container header {
-            margin: -30px -30px 20px -30px;
-            border-radius: 12px 12px 0 0;
+        /* สไตล์สำหรับปุ่ม */
+        .btn-primary {
+            background-color: #00bcd4; /* Cyan สดใส */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #00a0b2;
+        }
+
+        /* สไตล์สำหรับแอปหลัก (Dashboard/Form) */
+        .sidebar {
+            background: linear-gradient(180deg, #0077c2 0%, #00a0b2 100%);
+            width: 250px;
+            min-height: 100vh;
+            color: white;
+        }
+        .main-header {
+            background-color: #0077c2;
+        }
+        .card-all {
+            background: #e0f7fa; /* Light Cyan */
+            border-left: 5px solid #00bcd4;
+        }
+        .card-pending {
+            background: #fff3e0; /* Light Orange */
+            border-left: 5px solid #ff9800;
+        }
+        .card-completed {
+            background: #e8f5e9; /* Light Green */
+            border-left: 5px solid #4caf50;
+        }
+        .table-header {
+            background-color: #0077c2;
         }
     </style>
 </head>
-<body>
+<body class="p-0 m-0">
 
-    <div id="login-screen" class="app-container">
+    <div id="login-screen" class="app-container w-full h-screen flex justify-center items-center">
         <div id="login-form-container">
             <header>
-                <h2>🔑 เข้าสู่ระบบระบบแจ้งซ่อม</h2>
+                <h2 class="text-2xl font-bold">🔑 เข้าสู่ระบบระบบแจ้งซ่อม</h2>
             </header>
             <form id="login-form">
-                <div class="form-group">
-                    <label for="username">ชื่อผู้ใช้:</label>
-                    <input type="text" id="username" placeholder="รหัสพนักงาน/ครู" required>
+                <div class="mb-5">
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">ชื่อผู้ใช้:</label>
+                    <input type="text" id="username" placeholder="รหัสพนักงาน/ครู" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <div class="form-group">
-                    <label for="password">รหัสผ่าน:</label>
-                    <input type="password" id="password" placeholder="รหัสผ่าน" required>
+                <div class="mb-5">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">รหัสผ่าน:</label>
+                    <input type="password" id="password" placeholder="รหัสผ่าน" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <button type="button" class="btn" onclick="handleLogin()">เข้าสู่ระบบ</button>
+                <button type="button" class="btn-primary w-full mt-4" onclick="handleLogin()">เข้าสู่ระบบ</button>
             </form>
         </div>
     </div>
 
-    <div id="main-app" style="display: none;">
-        <header>
-            <h1>🔧 ระบบสำรวจความเสียหายและแจ้งซ่อม</h1>
-            <p>โรงเรียน (ใส่ชื่อโรงเรียนของคุณที่นี่)</p>
-        </header>
+    <div id="main-app" class="flex" style="display: none;">
         
-        <div class="main-content">
-            
-            <h2 style="color: var(--primary-color);">📝 กรอกแบบฟอร์มแจ้งซ่อม</h2>
-            <form action="#" method="POST">
-                <div class="form-group"><label for="report_date">วันที่แจ้ง:</label><input type="date" id="report_date" required></div>
-                <div class="form-group"><label for="reporter_name">ผู้แจ้ง:</label><input type="text" id="reporter_name" placeholder="ชื่อ-นามสกุล/รหัสผู้ใช้" required></div>
-                <div class="form-group">
-                    <label for="room_number">ห้อง/พื้นที่ที่เสียหาย:</label>
-                    <select id="room_number" required>
-                        <option value="">-- เลือกห้อง --</option>
-                        <option value="101">ห้องเรียน 101</option>
-                        <option value="Lab">ห้องปฏิบัติการ</option>
-                        <option value="Office">ห้องธุรการ</option>
-                        <option value="Other">อื่นๆ</option>
-                    </select>
-                </div>
-                <div class="form-group"><label for="equipment">อุปกรณ์ที่เสียหาย/แจ้งซ่อม:</label><input type="text" id="equipment" placeholder="เช่น เครื่องปรับอากาศ, โปรเจคเตอร์" required></div>
-                <div class="form-group"><label for="damage_details">รายละเอียดความเสียหาย:</label><textarea id="damage_details" rows="4" placeholder="อธิบายอาการและสิ่งที่เกิดขึ้นโดยละเอียด" required></textarea></div>
-                <button type="submit" class="btn">ส่งแบบฟอร์มแจ้งซ่อม</button>
+        <div class="sidebar p-5 shadow-lg">
+            <h2 class="text-3xl font-bold mb-8">SchoolFix</h2>
+            <nav>
+                <button onclick="showSection('dashboard')" class="w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-150 ease-in-out font-semibold mb-2 bg-white bg-opacity-10">📊 สรุปภาพรวม</button>
+                <button onclick="showSection('repair-form')" class="w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-150 ease-in-out font-semibold mb-2">📝 แจ้งซ่อม</button>
+                <button onclick="showSection('repair-list')" class="w-full text-left p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-150 ease-in-out font-semibold mb-2">📋 รายการแจ้งซ่อม</button>
+                <button onclick="handleLogout()" class="w-full text-left p-3 rounded-lg hover:bg-red-400 transition duration-150 ease-in-out font-semibold mt-10">🚪 ออกจากระบบ</button>
+            </nav>
+        </div>
 
-                <hr style="margin: 30px 0;">
-                <h3 style="color: var(--secondary-color);">🛠️ ข้อมูลการดำเนินการ (สำหรับเจ้าหน้าที่)</h3>
+        <div class="flex-1 p-8">
+            <header class="main-header text-white p-5 rounded-lg mb-8 shadow-md">
+                <h1 class="text-3xl font-bold">🔧 ระบบสำรวจความเสียหายและแจ้งซ่อม</h1>
+                <p class="text-white opacity-90">โรงเรียน (ชื่อโรงเรียน)</p>
+            </header>
+
+            <div id="dashboard" class="main-section">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">📊 สรุปภาพรวมการแจ้งซ่อม</h2>
                 
-                <div class="form-group"><label for="acknowledgement_staff">ลงชื่อคนรับทราบข้อมูล:</label><input type="text" id="acknowledgement_staff" placeholder="ชื่อเจ้าหน้าที่ผู้รับเรื่อง"></div>
-                <div class="form-group"><label for="repair_completion_date">วันที่ซ่อมเสร็จสิ้น:</label><input type="date" id="repair_completion_date"></div>
-            </form>
-            
-            <hr style="margin: 40px 0;">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="p-5 rounded-lg shadow-md card-all">
+                        <h3 class="text-lg font-semibold text-[#0077c2] mb-2">แจ้งซ่อมทั้งหมด</h3>
+                        <p class="text-4xl font-bold text-[#0077c2]">15</p>
+                        <p class="text-sm text-gray-600">รายการ</p>
+                    </div>
+                    
+                    <div class="p-5 rounded-lg shadow-md card-pending">
+                        <h3 class="text-lg font-semibold text-[#ff9800] mb-2">รายการที่รอซ่อม</h3>
+                        <p class="text-4xl font-bold text-[#ff9800]">8</p>
+                        <p class="text-sm text-gray-600">รายการที่กำลังดำเนินการ</p>
+                    </div>
+                    
+                    <div class="p-5 rounded-lg shadow-md card-completed">
+                        <h3 class="text-lg font-semibold text-[#4caf50] mb-2">✅ ซ่อมเสร็จสิ้นแล้ว</h3>
+                        <p class="text-4xl font-bold text-[#4caf50]">7</p>
+                        <p class="text-sm text-gray-600">รายการ</p>
+                    </div>
+                </div>
 
-            <h2 style="color: var(--primary-color);">📊 สรุปภาพรวมการแจ้งซ่อม</h2>
-            
-            <div class="dashboard-grid">
-                <div class="card all-reports"><h3>แจ้งซ่อมทั้งหมด</h3><h1>15</h1><p>รายการ</p></div>
-                <div class="card pending"><h3>รายการที่รอซ่อม</h3><h1>8</h1><p>รายการที่กำลังดำเนินการ</p></div>
-                <div class="card repaired"><h3>✅ ซ่อมเสร็จสิ้นแล้ว</h3><h1>7</h1><p>รายการ</p></div>
+                <div class="bg-white p-6 rounded-lg shadow-md mt-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">รายงานสรุปจาก AI (Mock-up)</h3>
+                    <p class="text-gray-700">จากการวิเคราะห์ข้อมูล ณ วันที่ 3 ธ.ค. 2568 พบว่า **ปัญหาแอร์เสีย** เป็นประเด็นเร่งด่วนที่สุด คิดเป็น 40% ของงานที่รอซ่อมทั้งหมด และปัญหา **ระบบไฟฟ้าห้องปฏิบัติการ** มีแนวโน้มเกิดขึ้นซ้ำบ่อยในช่วงเดือนที่ผ่านมา ควรเร่งจัดสรรงบประมาณเพื่อซ่อมบำรุงเชิงป้องกันในส่วนนี้</p>
+                    <button class="btn-primary mt-4 py-2 px-4 text-sm">สร้างรายงาน AI ฉบับเต็ม</button>
+                </div>
             </div>
 
-            <h3 style="margin-top: 40px; color: var(--secondary-color);">รายละเอียดการแจ้งซ่อมทั้งหมด</h3>
-            
-            <div style="overflow-x: auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>วันที่แจ้ง</th><th>ผู้แจ้ง</th><th>ห้อง</th><th>อุปกรณ์</th><th>รายละเอียด</th><th>สถานะ</th><th>วันที่ซ่อมเสร็จ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2025-12-01</td><td>สมศรี</td><td>101</td><td>พัดลมเพดาน</td><td>เปิดไม่ติด มีเสียงดัง</td>
-                            <td style="color: var(--success-color); font-weight: bold;">ซ่อมแล้ว</td><td>2025-12-03</td>
-                        </tr>
-                        <tr>
-                            <td>2025-12-02</td><td>มานะ</td><td>Lab</td><td>จอคอมพิวเตอร์</td><td>หน้าจอเป็นเส้นสีเขียว</td>
-                            <td style="color: var(--warning-color); font-weight: bold;">รอซ่อม</td><td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="repair-form" class="main-section hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">📝 กรอกแบบฟอร์มแจ้งซ่อม</h2>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <form onsubmit="event.preventDefault(); alert('ส่งแบบฟอร์มสำเร็จ! (ต้องใช้โค้ดหลังบ้านในการบันทึกข้อมูลจริง)');">
+                        <h3 class="text-xl font-semibold mb-4 text-[#0077c2]">ข้อมูลผู้แจ้งและสถานที่</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="mb-4">
+                                <label for="report_date" class="block text-sm font-medium text-gray-700 mb-1">วันที่แจ้ง:</label>
+                                <input type="date" id="report_date" required class="w-full p-3 border border-gray-300 rounded-lg">
+                            </div>
+                            <div class="mb-4">
+                                <label for="reporter_name" class="block text-sm font-medium text-gray-700 mb-1">ผู้แจ้ง (ครู/นักเรียน/เจ้าหน้าที่):</label>
+                                <input type="text" id="reporter_name" placeholder="ชื่อ-นามสกุล/รหัสผู้ใช้" required class="w-full p-3 border border-gray-300 rounded-lg">
+                            </div>
+                            <div class="mb-4 col-span-1 md:col-span-2">
+                                <label for="room_number" class="block text-sm font-medium text-gray-700 mb-1">ห้อง/พื้นที่ที่เสียหาย:</label>
+                                <select id="room_number" required class="w-full p-3 border border-gray-300 rounded-lg">
+                                    <option value="">-- เลือกห้อง/พื้นที่ --</option>
+                                    <option value="101">ห้องเรียน 101</option>
+                                    <option value="Lab">ห้องปฏิบัติการวิทยาศาสตร์</option>
+                                    <option value="Office">ห้องธุรการ</option>
+                                    <option value="Bathroom">ห้องน้ำ/สุขา</option>
+                                    <option value="Other">อื่นๆ (โปรดระบุในรายละเอียด)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-semibold mb-4 mt-6 text-[#0077c2]">รายละเอียดความเสียหาย</h3>
+                        <div class="mb-4">
+                            <label for="equipment" class="block text-sm font-medium text-gray-700 mb-1">อุปกรณ์ที่เสียหาย/แจ้งซ่อม (Dropdown):</label>
+                            <select id="equipment" required class="w-full p-3 border border-gray-300 rounded-lg">
+                                <option value="">-- เลือกประเภทอุปกรณ์ --</option>
+                                <option value="AC">เครื่องปรับอากาศ/พัดลม</option>
+                                <option value="IT">คอมพิวเตอร์/โปรเจคเตอร์</option>
+                                <option value="Electric">ไฟฟ้า/หลอดไฟ/ปลั๊ก</option>
+                                <option value="Plumbing">ประปา/ก๊อกน้ำ/ท่อ</option>
+                                <option value="Furniture">เฟอร์นิเจอร์ (โต๊ะ/เก้าอี้)</option>
+                                <option value="Facility">อาคาร/ประตู/หน้าต่าง</option>
+                                <option value="Other">อื่นๆ</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="damage_details" class="block text-sm font-medium text-gray-700 mb-1">รายละเอียดความเสียหาย:</label>
+                            <textarea id="damage_details" rows="4" placeholder="อธิบายอาการและสิ่งที่เกิดขึ้นโดยละเอียด" required class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full mt-6">ส่งแบบฟอร์มแจ้งซ่อม</button>
+                    </form>
+
+                    <hr class="my-8">
+                    <h3 class="text-xl font-semibold mb-4 text-[#0077c2]">🛠️ ข้อมูลการดำเนินการ (สำหรับเจ้าหน้าที่)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="mb-4">
+                            <label for="acknowledgement_staff" class="block text-sm font-medium text-gray-700 mb-1">ลงชื่อคนรับทราบข้อมูล:</label>
+                            <input type="text" id="acknowledgement_staff" placeholder="ชื่อเจ้าหน้าที่ผู้รับเรื่อง" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                        <div class="mb-4">
+                            <label for="repair_completion_date" class="block text-sm font-medium text-gray-700 mb-1">วันที่ซ่อมเสร็จสิ้น:</label>
+                            <input type="date" id="repair_completion_date" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                </div>
             </div>
-            
+
+            <div id="repair-list" class="main-section hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">📋 รายการแจ้งซ่อมทั้งหมด</h2>
+
+                <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="table-header text-white">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider rounded-tl-lg">วันที่แจ้ง</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">ผู้แจ้ง</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">ห้อง</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">อุปกรณ์</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">รายละเอียด</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">สถานะ</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider rounded-tr-lg">วันที่ซ่อมเสร็จ</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50 transition duration-150">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2025-12-01</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">สมศรี (ครู)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">101</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">เครื่องปรับอากาศ</td>
+                                <td class="px-6 py-4 text-sm text-gray-700">มีแต่น้ำหยด ไม่มีความเย็น</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">✅ ซ่อมเสร็จแล้ว</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2025-12-03</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition duration-150">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2025-12-02</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">มานะ (นร.)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Lab</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">จอคอมพิวเตอร์</td>
+                                <td class="px-6 py-4 text-sm text-gray-700">หน้าจอเป็นเส้นสีเขียว เปิดไม่ติด</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">⏳ รอดำเนินการ</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ตั้งค่าวันที่ปัจจุบันในฟอร์มแจ้งซ่อมโดยอัตโนมัติ
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('report_date').value = today;
+        });
+
         function handleLogin() {
-            // ในการใช้งานจริง: ตรวจสอบ username/password กับฐานข้อมูลที่นี่
-            
-            // ในโค้ดตัวอย่างนี้: ถือว่าล็อกอินสำเร็จเสมอ
+            // ในโค้ดตัวอย่างนี้: ถือว่าล็อกอินสำเร็จเสมอและสลับหน้า
             const loginScreen = document.getElementById('login-screen');
             const mainApp = document.getElementById('main-app');
 
             // ซ่อนหน้าล็อกอิน และแสดงหน้าหลัก
             loginScreen.style.display = 'none';
-            mainApp.style.display = 'block';
+            mainApp.style.display = 'flex'; // ใช้ flex สำหรับ layout ที่มี sidebar
 
-            // ต้องย้าย body style ออกจากการจัดให้อยู่ตรงกลางของหน้าล็อกอิน
-            document.body.style.display = 'block';
-            document.body.style.height = 'auto';
-            document.body.style.alignItems = 'stretch';
+            // ให้แสดงส่วน Dashboard เป็นค่าเริ่มต้น
+            showSection('dashboard');
+        }
+
+        function handleLogout() {
+            const loginScreen = document.getElementById('login-screen');
+            const mainApp = document.getElementById('main-app');
+            
+            mainApp.style.display = 'none';
+            loginScreen.style.display = 'flex'; // กลับไปหน้าล็อกอิน
+        }
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.main-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
         }
     </script>
 </body>
-</html># schoolfix
+</html>
